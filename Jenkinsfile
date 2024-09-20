@@ -1,5 +1,9 @@
 pipeline {
      agent any
+tools {
+nodejs 'nodejs'
+}
+
      stages {
         stage("Build") {
             steps {
@@ -7,8 +11,4 @@ pipeline {
                 sh "sudo npm run build"
             }
         }
-
-        }
-    }
-
-
+}
