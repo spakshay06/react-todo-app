@@ -1,56 +1,23 @@
-pipeline {
-    agent any
-
-    tools {
-        nodejs 'NodeJS 14' // Name of the NodeJS installation in Jenkins
-    }
-
-    stages {
-        stage('Checkout') {
-            steps {
-                // Pull code from the GitHub repository
-                git branch: 'main', url: 'https://github.com/spakshay06/react-todo-app.git'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install' // Install project dependencies
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                sh 'npm test' // Run tests (if any)
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'npm run build' // Build the React app
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Example: Deploy to Firebase (Firebase CLI must be installed)
-                withCredentials([file(credentialsId: 'firebase-token', variable: 'FIREBASE_TOKEN')]) {
-                    sh '''
-                    npm install -g firebase-tools
-                    firebase deploy --token "$FIREBASE_TOKEN"
-                    '''
-                }
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build and Deployment Successful!'
-        }
-        failure {
-            echo 'Build or Deployment Failed!'
-        }
-    }
+{
+  "name": "react-todo-app",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "0.9.0"
+  },
+  "dependencies": {
+    "bootstrap": "^3.4.1",
+    "immutability-helper": "^2.1.1",
+    "keycode-js": "^0.0.4",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "recompose": "^0.23.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
 }
 
