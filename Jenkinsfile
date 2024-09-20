@@ -1,9 +1,6 @@
 pipeline {
     agent any
-    tools {
-        nodejs 'nodejs'
-    }
-    stages {
+       stages {
         stage("Checkout") {
             steps {
                 // Checkout the code from your repository
