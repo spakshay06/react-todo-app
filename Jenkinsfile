@@ -1,39 +1,32 @@
-
 pipeline {
     agent any
     stages {
         stage("Checkout") {
             steps {
-                // Checkout code from your repository
                 checkout scm
             }
         }
         stage("Build") {
             steps {
-                // Install npm dependencies
                 sh "npm install"
-
-                // Build the application
                 sh "npm run build"
             }
         }
-        stage("Serve Build") {
+        stage("Install and Serve") {
             steps {
-                // Install http-server globally
-                sh "npm install -g http-server"
+                // Install http-server locally (without -g)
+                sh "npm install http-server"
 
-                // Serve the build folder using http-server
-                sh "http-server build -p 8080 &"
+                // Serve the build folder using http-server on port 3000 (or any other available port)
+                sh "./node_modules/.bin/http-server build -p 3000 &"
 
-                // Print the URL where the site is served
-                echo 'Your site is being served at http://localhost:8080/'
+                echo 'Your site is being served at http://localhost:3000/'
             }
         }
     }
     post {
         always {
-            // Ensure the workspace is cleaned up
-            cleanWs()
+            cleanWs() // Clean workspace after execution
         }
     }
 }
