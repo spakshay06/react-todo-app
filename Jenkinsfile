@@ -7,6 +7,7 @@ pipeline {
                //added my github in the jenkins scm
                 checkout scm
             }
+        }
         stage("Install and Build") {
             steps {
                 sh "npm install"
@@ -15,3 +16,4 @@ pipeline {
         }
     }
 } 
+
