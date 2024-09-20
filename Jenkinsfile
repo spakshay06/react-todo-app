@@ -11,4 +11,6 @@ nodejs 'nodejs'
                 sh "sudo npm run build"
             }
         }
+     }
 }
+    
